@@ -26,7 +26,7 @@ curl -O http://kernel.org/pub/software/scm/git/git-manpages-$VERSION.tar.gz
 
 tar -xzf git-$VERSION.tar.gz
 cd git-$VERSION
-make CFLAGS=$CFLAGS prefix= $PREFIX all
+make CFLAGS=$CFLAGS prefix=$PREFIX all
 
 if [ -e $PREFIX/libexec/git-core/git ] ; then
   rm -rf $PREFIX/libexec/git-core;
