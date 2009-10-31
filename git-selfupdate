@@ -4,6 +4,10 @@ set -e
 
 export PREFIX=`which git | sed -e 's/\/bin\/git//' | sed -e 's/\/libexec.*//'`
 
+# was not able to figure why I kept getting this
+# "undefined reference to `libiconv_open'"
+# the only way to make it work was adding the CFLAGS below
+export CFLAGS=-liconv
 export TMPDIR=/tmp/.git-$USER
 mkdir -p $TMPDIR
 cd $TMPDIR
@@ -22,7 +26,7 @@ curl -O http://kernel.org/pub/software/scm/git/git-manpages-$VERSION.tar.gz
 
 tar -xzf git-$VERSION.tar.gz
 cd git-$VERSION
-make prefix=$PREFIX all
+make CFLAGS=$CFLAGS prefix= $PREFIX all
 
 if [ -e $PREFIX/libexec/git-core/git ] ; then
   rm -rf $PREFIX/libexec/git-core;
